@@ -536,7 +536,7 @@ export default function Index() {
       {/* ─── 7. FEATURE HIGHLIGHT ─── */}
       <Section className="bg-[#0D1B2E] py-12 sm:py-16">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 lg:grid-cols-2 lg:gap-12">
-          <PlaceholderImg className="aspect-square w-full order-1 lg:order-2" />
+          <img src={sectionSolution} alt="HexaBuds Pro w użyciu" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover order-1 lg:order-2" />
           <div className="flex flex-col justify-center gap-5 order-2 lg:order-1">
             <span className="inline-block w-fit rounded-full bg-[#0946F6]/15 px-3 py-1 text-[12px] font-semibold text-[#4B8BF5]">
               Rozwiązanie
