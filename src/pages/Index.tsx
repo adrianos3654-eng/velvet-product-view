@@ -25,7 +25,7 @@ const PRODUCT = {
   omnibusPrice: 139.99,
   variantId: "gid://shopify/ProductVariant/PLACEHOLDER",
   handle: "hexabuds-pro",
-  images: Array(5).fill(null) as (string | null)[],
+  images: [productHero, productDetail, productCase, productLifestyle, productUnboxing],
   benefits: [
     "Translacja w czasie rzeczywistym na 135 języków",
     "Wbudowana aplikacja AI z osobistym asystentem głosowym",
