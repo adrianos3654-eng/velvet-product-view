@@ -397,17 +397,19 @@ export default function Index() {
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Gallery */}
             <div>
-              <PlaceholderImg className="aspect-square w-full" />
+              <div className="aspect-square w-full overflow-hidden rounded-2xl">
+                <img src={PRODUCT.images[activeImg]} alt={PRODUCT.name} width={1024} height={1024} className="h-full w-full object-cover" />
+              </div>
               <div className="mt-3 grid grid-cols-5 gap-2">
-                {PRODUCT.images.map((_, i) => (
+                {PRODUCT.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`aspect-square rounded-xl bg-gradient-to-br from-[#0F1E36] to-[#162D50] flex items-center justify-center border-2 transition-colors ${
+                    className={`aspect-square overflow-hidden rounded-xl border-2 transition-colors ${
                       activeImg === i ? "border-[#0946F6]" : "border-transparent"
                     }`}
                   >
-                    <ImageIcon size={16} className="text-white/20" />
+                    <img src={img} alt={`${PRODUCT.name} ${i + 1}`} loading="lazy" width={200} height={200} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
