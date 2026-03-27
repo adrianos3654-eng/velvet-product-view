@@ -90,11 +90,11 @@ function AccItem({ icon: Icon, title, children }: { icon: React.ElementType; tit
         className="flex w-full items-center justify-between py-4 text-left text-[14px] font-semibold text-white"
       >
         <span className="flex items-center gap-2">
-          <Icon size={16} className="text-white/50" />
+          <Icon size={16} className="text-white/65" />
           {title}
         </span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
-          <ChevronDown size={16} className="text-white/40" />
+          <ChevronDown size={16} className="text-white/55" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -107,7 +107,7 @@ function AccItem({ icon: Icon, title, children }: { icon: React.ElementType; tit
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="overflow-hidden"
           >
-            <div className="pb-4 text-[13px] text-white/60 leading-relaxed">{children}</div>
+            <div className="pb-4 text-[13px] text-white/75 leading-relaxed">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -137,7 +137,7 @@ function ReviewCard({ name, text }: { name: string; text: string }) {
           </div>
         </div>
       </div>
-      <span className="mb-2 inline-block rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
+      <span className="mb-2 inline-block rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/65">
         Zweryfikowany
       </span>
       <p className="text-[13px] leading-relaxed text-white/70">
@@ -232,7 +232,7 @@ export default function Index() {
                 Produkt
               </span>
               {["Funkcje", "Opinie", "FAQ"].map((l, i) => (
-                <span key={i} className="cursor-pointer text-[13px] text-white/50 hover:text-white">
+                <span key={i} className="cursor-pointer text-[13px] text-white/65 hover:text-white">
                   {l}
                 </span>
               ))}
@@ -264,7 +264,7 @@ export default function Index() {
                 key={i}
                 onClick={() => setMobileMenu(false)}
                 className={`rounded-lg px-3 py-2 text-left text-[14px] font-medium ${
-                  i === 0 ? "border border-white/30 text-white" : "text-white/50 hover:bg-white/5"
+                  i === 0 ? "border border-white/30 text-white" : "text-white/65 hover:bg-white/5"
                 }`}
               >
                 {l}
@@ -281,7 +281,7 @@ export default function Index() {
           <div className="border-b border-white/10 px-5 py-4">
             <h2 className="text-[18px] font-extrabold text-white">
               Koszyk{" "}
-              {totalItems > 0 && <span className="text-[14px] font-normal text-white/40">· {totalItems}</span>}
+              {totalItems > 0 && <span className="text-[14px] font-normal text-white/55">· {totalItems}</span>}
             </h2>
           </div>
 
@@ -290,7 +290,7 @@ export default function Index() {
             {cart.items.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20">
                 <ShoppingCart size={48} className="mb-3 text-white/15" />
-                <p className="text-[14px] text-white/40">Twój koszyk jest pusty</p>
+                <p className="text-[14px] text-white/55">Twój koszyk jest pusty</p>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -310,14 +310,14 @@ export default function Index() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => cart.updateQuantity(item.lineId, item.quantity - 1)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/60"
+                          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/75"
                         >
                           <Minus size={14} />
                         </button>
                         <span className="w-6 text-center text-[13px] font-semibold text-white">{item.quantity}</span>
                         <button
                           onClick={() => cart.updateQuantity(item.lineId, item.quantity + 1)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/60"
+                          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/75"
                         >
                           <Plus size={14} />
                         </button>
@@ -333,11 +333,11 @@ export default function Index() {
           {cart.items.length > 0 && (
             <div className="border-t border-white/10 px-5 py-4">
               <div className="mb-3 flex items-center justify-between">
-                <span className="text-[14px] text-white/50">Razem</span>
+                <span className="text-[14px] text-white/65">Razem</span>
                 <span className="text-[20px] font-extrabold text-white">{fmt(totalPrice)}</span>
               </div>
               {/* Terms checkbox */}
-              <label className="mb-3 flex cursor-pointer items-start gap-2 text-[12px] text-white/50">
+              <label className="mb-3 flex cursor-pointer items-start gap-2 text-[12px] text-white/65">
                 <button
                   type="button"
                   onClick={() => setTermsAccepted(!termsAccepted)}
@@ -415,7 +415,7 @@ export default function Index() {
                   ))}
                 </div>
                 <span className="text-[14px] font-semibold text-white">4.9</span>
-                <span className="text-[13px] text-white/40">— 2 847 opinii</span>
+                <span className="text-[13px] text-white/55">— 2 847 opinii</span>
               </div>
 
               <h1 className="text-[26px] font-extrabold leading-tight text-white sm:text-[32px]">
@@ -438,22 +438,22 @@ export default function Index() {
                     <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#0946F6]/15">
                       <Check size={14} className="text-[#4B8BF5]" />
                     </div>
-                    <span className="text-[13px] text-white/60">{b}</span>
+                    <span className="text-[13px] text-white/75">{b}</span>
                   </div>
                 ))}
               </div>
 
               {/* Quantity */}
               <div className="flex items-center gap-3">
-                <span className="text-[13px] font-medium text-white/60">Ilość:</span>
+                <span className="text-[13px] font-medium text-white/75">Ilość:</span>
                 <div className="flex items-center rounded-xl border border-white/10">
-                  <button onClick={() => setQty(Math.max(1, qty - 1))} className="flex h-10 w-10 items-center justify-center text-white/50">
+                  <button onClick={() => setQty(Math.max(1, qty - 1))} className="flex h-10 w-10 items-center justify-center text-white/65">
                     <Minus size={16} />
                   </button>
                   <span className="flex h-10 w-10 items-center justify-center bg-white/5 text-[14px] font-semibold text-white">
                     {qty}
                   </span>
-                  <button onClick={() => setQty(qty + 1)} className="flex h-10 w-10 items-center justify-center text-white/50">
+                  <button onClick={() => setQty(qty + 1)} className="flex h-10 w-10 items-center justify-center text-white/65">
                     <Plus size={16} />
                   </button>
                 </div>
@@ -470,7 +470,7 @@ export default function Index() {
               </motion.button>
 
               {/* Trust */}
-              <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-white/40">
+              <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-white/55">
                 <span className="flex items-center gap-1"><Lock size={12} /> Bezpieczna płatność</span>
                 <span className="flex items-center gap-1"><Truck size={12} /> Szybka dostawa</span>
                 <span className="flex items-center gap-1"><RotateCcw size={12} /> 30 dni na zwrot</span>
@@ -514,7 +514,7 @@ export default function Index() {
                   <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#FF6B00]/15 text-[14px]">
                     🔸
                   </span>
-                  <span className="text-[14px] text-white/60">{p}</span>
+                  <span className="text-[14px] text-white/75">{p}</span>
                 </div>
               ))}
             </div>
@@ -540,7 +540,7 @@ export default function Index() {
                   <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#0946F6]/15">
                     <Check size={14} className="text-[#4B8BF5]" />
                   </div>
-                  <span className="text-[14px] text-white/60">{f}</span>
+                  <span className="text-[14px] text-white/75">{f}</span>
                 </div>
               ))}
             </div>
@@ -552,13 +552,13 @@ export default function Index() {
       <Section className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-center gap-4">
-            <span className="inline-block w-fit rounded-full bg-white/10 px-3 py-1 text-[12px] font-semibold text-white/50">
+            <span className="inline-block w-fit rounded-full bg-white/10 px-3 py-1 text-[12px] font-semibold text-white/65">
               Jak to działa
             </span>
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">
               Załóż, mów i słuchaj — to naprawdę takie proste
             </h2>
-            <p className="text-[14px] leading-relaxed text-white/50">
+            <p className="text-[14px] leading-relaxed text-white/65">
               Sparuj HexaBuds Pro z telefonem przez Bluetooth, otwórz aplikację HEXATECH i wybierz języki rozmowy. Od teraz AI w czasie rzeczywistym tłumaczy to, co słyszysz — prosto do ucha. Działa offline w 12 najpopularniejszych językach, a z internetem obsługuje aż 135.
             </p>
           </div>
@@ -578,7 +578,7 @@ export default function Index() {
                 <TabsTrigger
                   key={i}
                   value={`tab${i + 1}`}
-                  className="rounded-lg px-5 py-2 text-[13px] font-medium text-white/60 data-[state=active]:bg-[#0946F6] data-[state=active]:text-white data-[state=active]:shadow"
+                  className="rounded-lg px-5 py-2 text-[13px] font-medium text-white/75 data-[state=active]:bg-[#0946F6] data-[state=active]:text-white data-[state=active]:shadow"
                 >
                   {t}
                 </TabsTrigger>
@@ -600,8 +600,8 @@ export default function Index() {
                       ["Studenci", "Nauka języków z natychmiastową korektą wymowy przez AI"],
                     ].map(([who, how], r) => (
                       <tr key={r} className="border-t border-white/10">
-                        <td className="px-5 py-3 text-white/60 font-medium">{who}</td>
-                        <td className="px-5 py-3 text-white/60">{how}</td>
+                        <td className="px-5 py-3 text-white/75 font-medium">{who}</td>
+                        <td className="px-5 py-3 text-white/75">{how}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -624,8 +624,8 @@ export default function Index() {
                       ["Asystent głosowy", "Sterowanie muzyką, nawigacją i kalendarzem głosem"],
                     ].map(([feat, benefit], r) => (
                       <tr key={r} className="border-t border-white/10">
-                        <td className="px-5 py-3 text-white/60 font-medium">{feat}</td>
-                        <td className="px-5 py-3 text-white/60">{benefit}</td>
+                        <td className="px-5 py-3 text-white/75 font-medium">{feat}</td>
+                        <td className="px-5 py-3 text-white/75">{benefit}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -648,8 +648,8 @@ export default function Index() {
                       ["Odporność", "IPX5 (deszcz, pot, wilgoć)"],
                     ].map(([param, value], r) => (
                       <tr key={r} className="border-t border-white/10">
-                        <td className="px-5 py-3 text-white/60 font-medium">{param}</td>
-                        <td className="px-5 py-3 text-white/60">{value}</td>
+                        <td className="px-5 py-3 text-white/75 font-medium">{param}</td>
+                        <td className="px-5 py-3 text-white/75">{value}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -684,7 +684,7 @@ export default function Index() {
                 "Bateria 40h z etui",
               ].map((feat, i) => (
                 <tr key={i} className="border-t border-white/10">
-                  <td className="px-5 py-3 text-white/60">{feat}</td>
+                  <td className="px-5 py-3 text-white/75">{feat}</td>
                   <td className="px-5 py-3 text-center">
                     <div className="mx-auto flex h-6 w-6 items-center justify-center rounded-full bg-[#0946F6]/15">
                       <Check size={14} className="text-[#4B8BF5]" />
@@ -703,7 +703,7 @@ export default function Index() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-8 flex flex-col items-center gap-3 text-center">
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">Co mówią klienci</h2>
-            <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-[12px] font-medium text-white/50 border border-white/10">
+            <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-[12px] font-medium text-white/65 border border-white/10">
               <Heart size={14} className="text-[#C41E1E]" fill="#C41E1E" /> 2 800+ zadowolonych klientów
             </span>
           </div>
@@ -725,7 +725,7 @@ export default function Index() {
           <h2 className="mb-3 text-[24px] font-extrabold text-white sm:text-[30px]">
             Zamów {PRODUCT.name} już teraz
           </h2>
-          <p className="mb-6 text-[14px] text-white/50">
+          <p className="mb-6 text-[14px] text-white/65">
             Dołącz do ponad 2 800 klientów, którzy przełamali bariery językowe. Darmowa dostawa, 30 dni na zwrot i 24 miesiące gwarancji.
           </p>
           <motion.button
@@ -768,12 +768,12 @@ export default function Index() {
       {/* ─── 14. FOOTER ─── */}
       <footer className="border-t border-white/10 bg-[#070F1D] py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 sm:flex-row">
-          <div className="flex gap-3 text-[11px] text-white/40 sm:text-[12px]">
-            <a href="#" className="hover:underline hover:text-white/60">Regulamin</a>
+          <div className="flex gap-3 text-[11px] text-white/55 sm:text-[12px]">
+            <a href="#" className="hover:underline hover:text-white/75">Regulamin</a>
             <span>|</span>
-            <a href="#" className="hover:underline hover:text-white/60">Polityka prywatności</a>
+            <a href="#" className="hover:underline hover:text-white/75">Polityka prywatności</a>
             <span>|</span>
-            <a href="#" className="hover:underline hover:text-white/60">Zwroty</a>
+            <a href="#" className="hover:underline hover:text-white/75">Zwroty</a>
           </div>
           <p className="text-[11px] text-white/25 sm:text-[12px]">
             © 2026 HEXATECH. Wszelkie prawa zastrzeżone.
