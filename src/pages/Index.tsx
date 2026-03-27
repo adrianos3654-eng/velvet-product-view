@@ -572,7 +572,7 @@ export default function Index() {
               Sparuj HexaBuds Pro z telefonem przez Bluetooth, otwórz aplikację HEXATECH i wybierz języki rozmowy. Od teraz AI w czasie rzeczywistym tłumaczy to, co słyszysz — prosto do ucha. Działa offline w 12 najpopularniejszych językach, a z internetem obsługuje aż 135.
             </p>
           </div>
-          <PlaceholderImg className="aspect-square w-full" />
+          <img src={sectionHowworks} alt="Aplikacja HEXATECH" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover" />
         </div>
       </Section>
 
