@@ -8,6 +8,14 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore, type ShopifyProduct } from "@/store/cartStore";
 import logo from "@/assets/logo.png";
+import productHero from "@/assets/product-hero.jpg";
+import productDetail from "@/assets/product-detail.jpg";
+import productCase from "@/assets/product-case.jpg";
+import productLifestyle from "@/assets/product-lifestyle.jpg";
+import productUnboxing from "@/assets/product-unboxing.jpg";
+import sectionProblem from "@/assets/section-problem.jpg";
+import sectionSolution from "@/assets/section-solution.jpg";
+import sectionHowworks from "@/assets/section-howworks.jpg";
 
 /* ─── PRODUCT DATA ─── */
 const PRODUCT = {
@@ -17,7 +25,7 @@ const PRODUCT = {
   omnibusPrice: 139.99,
   variantId: "gid://shopify/ProductVariant/PLACEHOLDER",
   handle: "hexabuds-pro",
-  images: Array(5).fill(null) as (string | null)[],
+  images: [productHero, productDetail, productCase, productLifestyle, productUnboxing],
   benefits: [
     "Translacja w czasie rzeczywistym na 135 języków",
     "Wbudowana aplikacja AI z osobistym asystentem głosowym",
@@ -389,17 +397,19 @@ export default function Index() {
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Gallery */}
             <div>
-              <PlaceholderImg className="aspect-square w-full" />
+              <div className="aspect-square w-full overflow-hidden rounded-2xl">
+                <img src={PRODUCT.images[activeImg]} alt={PRODUCT.name} width={1024} height={1024} className="h-full w-full object-cover" />
+              </div>
               <div className="mt-3 grid grid-cols-5 gap-2">
-                {PRODUCT.images.map((_, i) => (
+                {PRODUCT.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`aspect-square rounded-xl bg-gradient-to-br from-[#0F1E36] to-[#162D50] flex items-center justify-center border-2 transition-colors ${
+                    className={`aspect-square overflow-hidden rounded-xl border-2 transition-colors ${
                       activeImg === i ? "border-[#0946F6]" : "border-transparent"
                     }`}
                   >
-                    <ImageIcon size={16} className="text-white/20" />
+                    <img src={img} alt={`${PRODUCT.name} ${i + 1}`} loading="lazy" width={200} height={200} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -519,14 +529,14 @@ export default function Index() {
               ))}
             </div>
           </div>
-          <PlaceholderImg className="aspect-square w-full" />
+          <img src={sectionProblem} alt="Bariera językowa" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover" />
         </div>
       </Section>
 
       {/* ─── 7. FEATURE HIGHLIGHT ─── */}
       <Section className="bg-[#0D1B2E] py-12 sm:py-16">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 lg:grid-cols-2 lg:gap-12">
-          <PlaceholderImg className="aspect-square w-full order-1 lg:order-2" />
+          <img src={sectionSolution} alt="HexaBuds Pro w użyciu" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover order-1 lg:order-2" />
           <div className="flex flex-col justify-center gap-5 order-2 lg:order-1">
             <span className="inline-block w-fit rounded-full bg-[#0946F6]/15 px-3 py-1 text-[12px] font-semibold text-[#4B8BF5]">
               Rozwiązanie
@@ -562,7 +572,7 @@ export default function Index() {
               Sparuj HexaBuds Pro z telefonem przez Bluetooth, otwórz aplikację HEXATECH i wybierz języki rozmowy. Od teraz AI w czasie rzeczywistym tłumaczy to, co słyszysz — prosto do ucha. Działa offline w 12 najpopularniejszych językach, a z internetem obsługuje aż 135.
             </p>
           </div>
-          <PlaceholderImg className="aspect-square w-full" />
+          <img src={sectionHowworks} alt="Aplikacja HEXATECH" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover" />
         </div>
       </Section>
 
