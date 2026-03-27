@@ -529,7 +529,7 @@ export default function Index() {
               ))}
             </div>
           </div>
-          <PlaceholderImg className="aspect-square w-full" />
+          <img src={sectionProblem} alt="Bariera językowa" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover" />
         </div>
       </Section>
 
