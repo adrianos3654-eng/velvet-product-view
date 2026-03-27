@@ -7,32 +7,33 @@ import {
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore, type ShopifyProduct } from "@/store/cartStore";
+import logo from "@/assets/logo.png";
 
 /* ─── PRODUCT DATA ─── */
 const PRODUCT = {
-  name: "[NAZWA PRODUKTU]",
+  name: "HexaBuds Pro",
   price: 149.99,
   compareAtPrice: 249.99,
   omnibusPrice: 139.99,
   variantId: "gid://shopify/ProductVariant/PLACEHOLDER",
-  handle: "placeholder-product",
+  handle: "hexabuds-pro",
   images: Array(5).fill(null) as (string | null)[],
   benefits: [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "Sed do eiusmod tempor incididunt ut labore et dolore",
-    "Ut enim ad minim veniam, quis nostrud exercitation",
+    "Translacja w czasie rzeczywistym na 135 języków",
+    "Wbudowana aplikacja AI z osobistym asystentem głosowym",
+    "Do 40h pracy na baterii z etui ładującym",
   ],
   features: [
-    "Lorem ipsum dolor sit amet consectetur",
-    "Adipiscing elit sed do eiusmod tempor",
-    "Incididunt ut labore et dolore magna aliqua",
-    "Ut enim ad minim veniam quis nostrud",
+    "Podwójne mikrofony z redukcją szumów AI",
+    "Bluetooth 5.3 z multipoint — łącz 2 urządzenia naraz",
+    "Sterowanie dotykowe i gestami głowy",
+    "Odporność IPX5 — deszcz i trening bez obaw",
   ],
   problems: [
-    "Lorem ipsum dolor sit amet consectetur",
-    "Adipiscing elit sed do eiusmod tempor",
-    "Incididunt ut labore et dolore magna",
-    "Ut enim ad minim veniam quis nostrud",
+    "Bariera językowa blokuje Twoje podróże i biznes",
+    "Tradycyjne translatory są wolne i niewygodne",
+    "Słuchawki konkurencji nie mają wbudowanego AI",
+    "Brak integracji z aplikacją — zero personalizacji",
   ],
 };
 
@@ -213,7 +214,7 @@ export default function Index() {
       {/* ─── 1. ANNOUNCEMENT BAR ─── */}
       <div className="fixed inset-x-0 top-0 z-50 flex items-center justify-center bg-[#0946F6] px-4 py-2">
         <p className="text-[10px] font-semibold uppercase tracking-wider text-white sm:text-[11px]">
-          ✨ Lorem ipsum promo — darmowa dostawa od 199&nbsp;zł
+          ✨ Darmowa dostawa od 199 zł — Translacja na 135 języków w czasie rzeczywistym
         </p>
       </div>
       <div className="h-[32px] sm:h-[36px]" />
@@ -230,7 +231,7 @@ export default function Index() {
               <span className="rounded-md border border-white/30 px-3 py-1 text-[13px] font-medium text-white">
                 Produkt
               </span>
-              {["Lorem", "Lorem", "Lorem"].map((l, i) => (
+              {["Funkcje", "Opinie", "FAQ"].map((l, i) => (
                 <span key={i} className="cursor-pointer text-[13px] text-white/50 hover:text-white">
                   {l}
                 </span>
@@ -238,9 +239,7 @@ export default function Index() {
             </div>
           </div>
           {/* Center */}
-          <span className="absolute left-1/2 -translate-x-1/2 text-[18px] font-extrabold text-white">
-            [LOGO SKLEPU]
-          </span>
+          <img src={logo} alt="HEXATECH" className="absolute left-1/2 -translate-x-1/2 h-7 sm:h-8" />
           {/* Right */}
           <button onClick={() => cart.setOpen(true)} className="relative">
             <ShoppingCart size={22} className="text-white" />
@@ -257,10 +256,10 @@ export default function Index() {
       <Sheet open={mobileMenu} onOpenChange={setMobileMenu}>
         <SheetContent side="left" className="w-[280px] bg-[#0D1B2E] p-0 border-r border-white/10">
           <div className="border-b border-white/10 p-5">
-            <span className="text-[18px] font-extrabold text-white">[LOGO SKLEPU]</span>
+            <img src={logo} alt="HEXATECH" className="h-7" />
           </div>
           <div className="flex flex-col gap-1 p-4">
-            {["Produkt", "Lorem", "Lorem", "Lorem"].map((l, i) => (
+            {["Produkt", "Funkcje", "Opinie", "FAQ"].map((l, i) => (
               <button
                 key={i}
                 onClick={() => setMobileMenu(false)}
@@ -416,11 +415,11 @@ export default function Index() {
                   ))}
                 </div>
                 <span className="text-[14px] font-semibold text-white">4.9</span>
-                <span className="text-[13px] text-white/40">— Lorem ipsum opinii</span>
+                <span className="text-[13px] text-white/40">— 2 847 opinii</span>
               </div>
 
               <h1 className="text-[26px] font-extrabold leading-tight text-white sm:text-[32px]">
-                {PRODUCT.name}
+                {PRODUCT.name} — Słuchawki AI z Translacją na 135 Języków
               </h1>
 
               {/* Price */}
@@ -474,19 +473,19 @@ export default function Index() {
               <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-white/40">
                 <span className="flex items-center gap-1"><Lock size={12} /> Bezpieczna płatność</span>
                 <span className="flex items-center gap-1"><Truck size={12} /> Szybka dostawa</span>
-                <span className="flex items-center gap-1"><RotateCcw size={12} /> Łatwy zwrot</span>
+                <span className="flex items-center gap-1"><RotateCcw size={12} /> 30 dni na zwrot</span>
               </div>
 
               {/* Accordion */}
               <div className="rounded-2xl border border-white/10 px-4">
-                <AccItem icon={Package} title="Pytanie dotyczące produktu?">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <AccItem icon={Package} title="Co znajduje się w zestawie?">
+                  Słuchawki HexaBuds Pro, etui ładujące, kabel USB-C, 3 rozmiary wkładek silikonowych (S/M/L), instrukcja obsługi oraz karta gwarancyjna na 24 miesiące.
                 </AccItem>
-                <AccItem icon={Shield} title="Gwarancja?">
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                <AccItem icon={Shield} title="Jaka jest gwarancja?">
+                  HexaBuds Pro objęte są 24-miesięczną gwarancją producenta. W przypadku wad fabrycznych wymieniamy produkt na nowy. Dożywotnie aktualizacje firmware i aplikacji AI w cenie.
                 </AccItem>
-                <AccItem icon={RotateCcw} title="Zwroty?">
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <AccItem icon={RotateCcw} title="Jak wygląda procedura zwrotu?">
+                  Masz 30 dni na bezwarunkowy zwrot. Wystarczy odesłać produkt w oryginalnym opakowaniu — zwrot pieniędzy w ciągu 3 dni roboczych. Koszt przesyłki zwrotnej pokrywamy my.
                 </AccItem>
               </div>
 
@@ -507,7 +506,7 @@ export default function Index() {
               Problem
             </span>
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">
-              Lorem ipsum dolor sit amet consectetur
+              Bariery językowe kosztują Cię czas, pieniądze i okazje
             </h2>
             <div className="flex flex-col gap-3">
               {PRODUCT.problems.map((p, i) => (
@@ -533,7 +532,7 @@ export default function Index() {
               Rozwiązanie
             </span>
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">
-              Lorem ipsum dolor sit amet consectetur
+              HexaBuds Pro — Twój osobisty tłumacz i asystent AI
             </h2>
             <div className="flex flex-col gap-3">
               {PRODUCT.features.map((f, i) => (
@@ -557,10 +556,10 @@ export default function Index() {
               Jak to działa
             </span>
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">
-              Lorem ipsum dolor sit amet
+              Załóż, mów i słuchaj — to naprawdę takie proste
             </h2>
             <p className="text-[14px] leading-relaxed text-white/50">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+              Sparuj HexaBuds Pro z telefonem przez Bluetooth, otwórz aplikację HEXATECH i wybierz języki rozmowy. Od teraz AI w czasie rzeczywistym tłumaczy to, co słyszysz — prosto do ucha. Działa offline w 12 najpopularniejszych językach, a z internetem obsługuje aż 135.
             </p>
           </div>
           <PlaceholderImg className="aspect-square w-full" />
@@ -585,28 +584,78 @@ export default function Index() {
                 </TabsTrigger>
               ))}
             </TabsList>
-            {[1, 2, 3].map((tab) => (
-              <TabsContent key={tab} value={`tab${tab}`}>
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A1628]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-white/5">
-                      <tr>
-                        <th className="px-5 py-3 font-semibold text-white">Dla kogo</th>
-                        <th className="px-5 py-3 font-semibold text-white">Zalety</th>
+            <TabsContent value="tab1">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A1628]">
+                <table className="w-full text-left text-[13px]">
+                  <thead className="bg-white/5">
+                    <tr>
+                      <th className="px-5 py-3 font-semibold text-white">Dla kogo</th>
+                      <th className="px-5 py-3 font-semibold text-white">Jak pomaga</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Podróżnicy", "Komunikacja w hotelach, restauracjach i na lotniskach bez bariery językowej"],
+                      ["Przedsiębiorcy", "Negocjacje i spotkania z zagranicznymi partnerami w czasie rzeczywistym"],
+                      ["Studenci", "Nauka języków z natychmiastową korektą wymowy przez AI"],
+                    ].map(([who, how], r) => (
+                      <tr key={r} className="border-t border-white/10">
+                        <td className="px-5 py-3 text-white/60 font-medium">{who}</td>
+                        <td className="px-5 py-3 text-white/60">{how}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {[1, 2, 3].map((r) => (
-                        <tr key={r} className="border-t border-white/10">
-                          <td className="px-5 py-3 text-white/60">Lorem ipsum dolor sit</td>
-                          <td className="px-5 py-3 text-white/60">Consectetur adipiscing elit</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </TabsContent>
-            ))}
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </TabsContent>
+            <TabsContent value="tab2">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A1628]">
+                <table className="w-full text-left text-[13px]">
+                  <thead className="bg-white/5">
+                    <tr>
+                      <th className="px-5 py-3 font-semibold text-white">Funkcja</th>
+                      <th className="px-5 py-3 font-semibold text-white">Korzyść</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Translacja AI", "Płynna rozmowa w 135 językach bez przerw"],
+                      ["Tryb offline", "12 języków bez internetu — idealny na podróże"],
+                      ["Asystent głosowy", "Sterowanie muzyką, nawigacją i kalendarzem głosem"],
+                    ].map(([feat, benefit], r) => (
+                      <tr key={r} className="border-t border-white/10">
+                        <td className="px-5 py-3 text-white/60 font-medium">{feat}</td>
+                        <td className="px-5 py-3 text-white/60">{benefit}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </TabsContent>
+            <TabsContent value="tab3">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A1628]">
+                <table className="w-full text-left text-[13px]">
+                  <thead className="bg-white/5">
+                    <tr>
+                      <th className="px-5 py-3 font-semibold text-white">Parametr</th>
+                      <th className="px-5 py-3 font-semibold text-white">Wartość</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Bluetooth", "5.3 z multipoint (2 urządzenia)"],
+                      ["Bateria", "8h słuchawki / 40h z etui"],
+                      ["Odporność", "IPX5 (deszcz, pot, wilgoć)"],
+                    ].map(([param, value], r) => (
+                      <tr key={r} className="border-t border-white/10">
+                        <td className="px-5 py-3 text-white/60 font-medium">{param}</td>
+                        <td className="px-5 py-3 text-white/60">{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </TabsContent>
           </Tabs>
         </div>
       </Section>
@@ -626,7 +675,14 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {["Lorem ipsum dolor", "Sit amet consectetur", "Adipiscing elit sed", "Do eiusmod tempor", "Incididunt ut labore", "Et dolore magna"].map((feat, i) => (
+              {[
+                "Translacja na 135 języków",
+                "Wbudowany asystent AI",
+                "Tryb offline (12 języków)",
+                "Aplikacja z aktualizacjami OTA",
+                "Redukcja szumów AI (ANC)",
+                "Bateria 40h z etui",
+              ].map((feat, i) => (
                 <tr key={i} className="border-t border-white/10">
                   <td className="px-5 py-3 text-white/60">{feat}</td>
                   <td className="px-5 py-3 text-center">
@@ -648,14 +704,14 @@ export default function Index() {
           <div className="mb-8 flex flex-col items-center gap-3 text-center">
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">Co mówią klienci</h2>
             <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-[12px] font-medium text-white/50 border border-white/10">
-              <Heart size={14} className="text-[#C41E1E]" fill="#C41E1E" /> 1200+ zadowolonych klientów
+              <Heart size={14} className="text-[#C41E1E]" fill="#C41E1E" /> 2 800+ zadowolonych klientów
             </span>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Anna K.", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris." },
-              { name: "Marcin W.", text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." },
-              { name: "Kasia L.", text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod." },
+              { name: "Anna K.", text: "Byłam na wakacjach w Japonii i HexaBuds Pro uratowały mi życie! Zamawianie jedzenia, pytanie o drogę, rozmowy z lokalsami — wszystko w czasie rzeczywistym. Jakość dźwięku jest niesamowita, a translacja praktycznie bez opóźnień." },
+              { name: "Marcin W.", text: "Używam na spotkaniach biznesowych z klientami z Niemiec i Francji. Oszczędzam na tłumaczu, a rozmowy idą płynnie. Polecam każdemu przedsiębiorcy!" },
+              { name: "Kasia L.", text: "Uczę się koreańskiego i te słuchawki to game changer. Aplikacja podpowiada mi poprawną wymowę, a tryb konwersacji pozwala mi ćwiczyć z prawdziwymi ludźmi bez stresu. Bateria trzyma cały dzień. Warto każdej złotówki!" },
             ].map((r, i) => (
               <ReviewCard key={i} {...r} />
             ))}
@@ -670,7 +726,7 @@ export default function Index() {
             Zamów {PRODUCT.name} już teraz
           </h2>
           <p className="mb-6 text-[14px] text-white/50">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.
+            Dołącz do ponad 2 800 klientów, którzy przełamali bariery językowe. Darmowa dostawa, 30 dni na zwrot i 24 miesiące gwarancji.
           </p>
           <motion.button
             whileHover={{ scale: 1.02, boxShadow: "0 8px 30px rgba(9,70,246,0.3)" }}
@@ -690,17 +746,21 @@ export default function Index() {
             Najczęstsze pytania
           </h2>
           <div className="rounded-2xl border border-white/10 bg-[#0A1628] px-5 shadow-sm">
-            {[
-              "Jak szybko otrzymam zamówienie?",
-              "Czy mogę zwrócić produkt?",
-              "Jakie metody płatności akceptujecie?",
-              "Czy produkt ma gwarancję?",
-              "Czy wysyłacie za granicę?",
-            ].map((q, i) => (
-              <AccItem key={i} icon={ChevronDown} title={q}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </AccItem>
-            ))}
+            <AccItem icon={ChevronDown} title="Jak szybko otrzymam zamówienie?">
+              Zamówienia wysyłamy w ciągu 24h w dni robocze. Standardowa dostawa trwa 2-3 dni robocze, a przesyłka ekspresowa dociera następnego dnia. Przy zamówieniu powyżej 199 zł wysyłka jest darmowa.
+            </AccItem>
+            <AccItem icon={ChevronDown} title="Czy translacja działa bez internetu?">
+              Tak! HexaBuds Pro obsługuje 12 najpopularniejszych języków w trybie offline, w tym angielski, niemiecki, hiszpański, francuski i chiński. Pełna lista 135 języków wymaga połączenia z internetem.
+            </AccItem>
+            <AccItem icon={ChevronDown} title="Jak działa wbudowana aplikacja AI?">
+              Aplikacja HEXATECH (iOS/Android) łączy się ze słuchawkami i oferuje: ustawienia translacji, trening wymowy, asystenta głosowego, personalizację equalizera i automatyczne aktualizacje firmware OTA.
+            </AccItem>
+            <AccItem icon={ChevronDown} title="Czy mogę zwrócić produkt?">
+              Oczywiście. Masz 30 dni na bezwarunkowy zwrot od daty dostawy. Odsyłasz produkt w oryginalnym opakowaniu, a my zwracamy pełną kwotę w ciągu 3 dni roboczych. Koszt przesyłki zwrotnej pokrywamy.
+            </AccItem>
+            <AccItem icon={ChevronDown} title="Z jakimi urządzeniami są kompatybilne?">
+              HexaBuds Pro działają z każdym urządzeniem Bluetooth 5.0+ — smartfony (iOS 14+ / Android 10+), tablety, laptopy i komputery. Multipoint pozwala połączyć 2 urządzenia jednocześnie.
+            </AccItem>
           </div>
         </div>
       </Section>
@@ -716,7 +776,7 @@ export default function Index() {
             <a href="#" className="hover:underline hover:text-white/60">Zwroty</a>
           </div>
           <p className="text-[11px] text-white/25 sm:text-[12px]">
-            © 2026 [NAZWA SKLEPU]. Wszelkie prawa zastrzeżone.
+            © 2026 HEXATECH. Wszelkie prawa zastrzeżone.
           </p>
         </div>
       </footer>
