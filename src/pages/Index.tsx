@@ -8,6 +8,14 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore, type ShopifyProduct } from "@/store/cartStore";
 import logo from "@/assets/logo.png";
+import productHero from "@/assets/product-hero.jpg";
+import productDetail from "@/assets/product-detail.jpg";
+import productCase from "@/assets/product-case.jpg";
+import productLifestyle from "@/assets/product-lifestyle.jpg";
+import productUnboxing from "@/assets/product-unboxing.jpg";
+import sectionProblem from "@/assets/section-problem.jpg";
+import sectionSolution from "@/assets/section-solution.jpg";
+import sectionHowworks from "@/assets/section-howworks.jpg";
 
 /* ─── PRODUCT DATA ─── */
 const PRODUCT = {
