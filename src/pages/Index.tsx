@@ -20,9 +20,9 @@ import sectionHowworks from "@/assets/section-howworks.jpg";
 /* ─── PRODUCT DATA ─── */
 const PRODUCT = {
   name: "HexaBuds Pro",
-  price: 149.99,
-  compareAtPrice: 249.99,
-  omnibusPrice: 139.99,
+  price: 229.99,
+  compareAtPrice: 359.99,
+  omnibusPrice: 219.99,
   variantId: "gid://shopify/ProductVariant/PLACEHOLDER",
   handle: "hexabuds-pro",
   images: [productHero, productDetail, productCase, productLifestyle, productUnboxing],
