@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   ShoppingCart, Menu, ImageIcon, Star, Check, Lock, Truck, RotateCcw,
-  ChevronDown, Package, Shield, X, Minus, Plus, Loader2, Heart,
+  ChevronDown, ChevronLeft, ChevronRight, Package, Shield, X, Minus, Plus, Loader2, Heart,
 } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore, type ShopifyProduct } from "@/store/cartStore";
