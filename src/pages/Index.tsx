@@ -743,32 +743,66 @@ export default function Index() {
               { name: "Karolina Wróbel", text: "Super obsługa klienta! Miałam problem z parowaniem i odpisali mi w 20 minut z rozwiązaniem. Słuchawki same w sobie są świetne — lekkie, ładne i funkcjonalne." },
               { name: "Paweł Borkowski", text: "Jestem kierowcą TIR-a i jeżdżę po całej Europie. HexaBuds to mój najlepszy towarzysz podróży — dogadam się na stacji w Hiszpanii, we Włoszech, wszędzie. Mega sprawa." },
             ];
-            const [showAll, setShowAll] = useState(false);
-            const visible = showAll ? allReviews : allReviews.slice(0, 3);
+            const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start", slidesToScroll: 1 });
+            const [canPrev, setCanPrev] = useState(false);
+            const [canNext, setCanNext] = useState(true);
+            const [current, setCurrent] = useState(0);
+
+            const onSelect = useCallback(() => {
+              if (!emblaApi) return;
+              setCanPrev(emblaApi.canScrollPrev());
+              setCanNext(emblaApi.canScrollNext());
+              setCurrent(emblaApi.selectedScrollSnap());
+            }, [emblaApi]);
+
+            useEffect(() => {
+              if (!emblaApi) return;
+              onSelect();
+              emblaApi.on("select", onSelect);
+              emblaApi.on("reInit", onSelect);
+              return () => { emblaApi.off("select", onSelect); };
+            }, [emblaApi, onSelect]);
+
             return (
               <>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <AnimatePresence>
-                    {visible.map((r, i) => (
-                      <motion.div
-                        key={r.name}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: i > 2 ? (i - 3) * 0.05 : 0 }}
-                      >
-                        <ReviewCard {...r} />
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
-                <div className="mt-6 flex justify-center">
+                <div className="relative">
+                  {/* Arrows */}
                   <button
-                    onClick={() => setShowAll(!showAll)}
-                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-[13px] font-semibold text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                    onClick={() => emblaApi?.scrollPrev()}
+                    disabled={!canPrev}
+                    className="absolute -left-4 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-sm transition-all hover:bg-white/10 hover:text-white disabled:opacity-30 sm:-left-5"
                   >
-                    {showAll ? "Zwiń opinie" : `Pokaż wszystkie opinie (${allReviews.length})`}
-                    <ChevronDown size={16} className={`transition-transform ${showAll ? "rotate-180" : ""}`} />
+                    <ChevronLeft size={20} />
                   </button>
+                  <button
+                    onClick={() => emblaApi?.scrollNext()}
+                    disabled={!canNext}
+                    className="absolute -right-4 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-sm transition-all hover:bg-white/10 hover:text-white disabled:opacity-30 sm:-right-5"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+
+                  {/* Carousel */}
+                  <div ref={emblaRef} className="overflow-hidden px-2">
+                    <div className="flex gap-4">
+                      {allReviews.map((r, i) => (
+                        <div key={r.name} className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[calc(50%-8px)] lg:basis-[calc(33.333%-11px)]">
+                          <ReviewCard {...r} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dots */}
+                <div className="mt-6 flex items-center justify-center gap-1.5">
+                  {Array.from({ length: Math.ceil(allReviews.length / 3) }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => emblaApi?.scrollTo(i * 3)}
+                      className={`h-2 rounded-full transition-all ${current >= i * 3 && current < (i + 1) * 3 ? "w-6 bg-[#3B82F6]" : "w-2 bg-white/20 hover:bg-white/40"}`}
+                    />
+                  ))}
                 </div>
               </>
             );
