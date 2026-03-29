@@ -719,9 +719,28 @@ export default function Index() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Anna K.", text: "Byłam na wakacjach w Japonii i HexaBuds Pro uratowały mi życie! Zamawianie jedzenia, pytanie o drogę, rozmowy z lokalsami — wszystko w czasie rzeczywistym. Jakość dźwięku jest niesamowita, a translacja praktycznie bez opóźnień." },
-              { name: "Marcin W.", text: "Używam na spotkaniach biznesowych z klientami z Niemiec i Francji. Oszczędzam na tłumaczu, a rozmowy idą płynnie. Polecam każdemu przedsiębiorcy!" },
-              { name: "Kasia L.", text: "Uczę się koreańskiego i te słuchawki to game changer. Aplikacja podpowiada mi poprawną wymowę, a tryb konwersacji pozwala mi ćwiczyć z prawdziwymi ludźmi bez stresu. Bateria trzyma cały dzień. Warto każdej złotówki!" },
+              { name: "Anna Kowalska", text: "Byłam na wakacjach w Japonii i HexaBuds Pro uratowały mi życie! Zamawianie jedzenia, pytanie o drogę — wszystko w czasie rzeczywistym. Jakość dźwięku super, translacja praktycznie bez opóźnień." },
+              { name: "Marcin Wiśniewski", text: "Używam na spotkaniach biznesowych z klientami z Niemiec i Francji. Oszczędzam na tłumaczu, rozmowy idą płynnie. Polecam każdemu przedsiębiorcy!" },
+              { name: "Kasia Lewandowska", text: "Uczę się koreańskiego i te słuchawki to game changer. Aplikacja podpowiada wymowę, tryb konwersacji pozwala ćwiczyć z ludźmi bez stresu. Bateria trzyma cały dzień." },
+              { name: "Tomek Nowak", text: "Szczerze? Kupowałem z niedowierzaniem, bo za tą cenę to brzmiało za dobrze. Ale działa. Używam codziennie na budowie z ekipą z Ukrainy i dogadujemy się bez problemu." },
+              { name: "Magdalena Zielińska", text: "Zamówiłam dla męża na urodziny, bo często jeździ służbowo do Włoch. Mówi, że to najlepszy prezent jaki dostał. Teraz sam zamawia drugą parę dla kolegi." },
+              { name: "Piotr Kamiński", text: "Na początku myślałem że to kolejny gadżet który wyląduje w szufladzie. Minęły 3 miesiące i używam codziennie. Translacja jest szybka, mikrofony łapią głos nawet w hałasie." },
+              { name: "Ola Szymańska", text: "Pracuję jako przewodnik turystyczny i te słuchawki ułatwiają mi pracę z grupami międzynarodowymi. Klienci są zachwyceni kiedy mogę im odpowiedzieć w ich języku." },
+              { name: "Rafał Wójcik", text: "Gram online z ludźmi z całego świata. Podłączyłem HexaBuds i nagle mogę gadać z Japończykami i Brazylijczykami jakby to było po polsku. Sztos." },
+              { name: "Justyna Dąbrowska", text: "Kupiłam mamie która jedzie do córki do Norwegii. Mama nie zna angielskiego, a teraz mówi że czuje się pewnie bo słuchawki tłumaczą jej wszystko na bieżąco. Polecam starszym osobom!" },
+              { name: "Adam Mazur", text: "Dobra, przyznam się — kupiłem bo chciałem podrywać na wakacjach 😅 Ale serio, translacja działa świetnie i faktycznie się przydaje. Dźwięk do muzyki też jest bardzo przyzwoity." },
+              { name: "Natalia Krawczyk", text: "Jestem tłumaczką i używam jako wsparcie. Nie zastąpi profesjonalnego tłumaczenia, ale do codziennych rozmów i szybkich spotkań jest idealne. Bardzo pozytywnie zaskoczona." },
+              { name: "Bartek Jankowski", text: "Przesyłka doszła w 3 dni, pudełko ładne, słuchawki wyglądają premium. Po tygodniu użytkowania mogę powiedzieć — warto. Jedyny minus to że etui mogłoby być trochę mniejsze." },
+              { name: "Monika Pawlak", text: "Mój syn jest głuchoniemy i te słuchawki z funkcją transkrypcji pomagają mu w codziennych sytuacjach. Nie sądziłam że technologia może tak zmienić czyjeś życie. Dziękuję ❤️" },
+              { name: "Krzysztof Grabowski", text: "Prowadzę firmę importową i codziennie rozmawiam z dostawcami z Chin. Wcześniej wszystko przez maila z Google Translate. Teraz dzwonię i gadam na żywo. Oszczędność czasu jest ogromna." },
+              { name: "Ewa Nowicka", text: "Fajne, ale translacja z arabskiego mogłaby być lepsza. Z angielskim, niemieckim i francuskim działa perfekcyjnie. Generalnie jestem zadowolona, dźwięk czysty, wygodne do noszenia." },
+              { name: "Damian Kowalczyk", text: "Kupiłem 5 sztuk dla całego zespołu w firmie. Mamy klientów z 8 krajów i te słuchawki realnie przyspieszają naszą komunikację. ROI zwróciło się w pierwszy miesiąc." },
+              { name: "Weronika Jabłońska", text: "Noszę cały dzień i nie bolą uszy — to dla mnie najważniejsze. Translacja to bonus, ale comfort jest na pierwszym miejscu i tutaj HexaBuds zdają egzamin." },
+              { name: "Marek Witkowski", text: "Miałem wcześniej słuchawki od konkurencji za 1500 zł i HexaBuds Pro są lepsze w każdym aspekcie za ułamek ceny. Translacja szybsza, aplikacja lepsza, bateria dłuższa." },
+              { name: "Agnieszka Stępień", text: "Zamówiłam i nie żałuję. Używam głównie do podcastów i muzyki, ale kiedy byłam ostatnio w Barcelonie to translacja z hiszpańskiego była na mega poziomie!" },
+              { name: "Łukasz Michalski", text: "Polecił mi kolega z pracy. Na początku sceptyczny, ale po pierwszym spotkaniu z klientem z Korei wiedziałem że to must-have. Apka jest intuicyjna, parowanie trwa sekundy." },
+              { name: "Karolina Wróbel", text: "Super obsługa klienta! Miałam problem z parowaniem i odpisali mi w 20 minut z rozwiązaniem. Słuchawki same w sobie są świetne — lekkie, ładne i funkcjonalne." },
+              { name: "Paweł Borkowski", text: "Jestem kierowcą TIR-a i jeżdżę po całej Europie. HexaBuds to mój najlepszy towarzysz podróży — dogadam się na stacji w Hiszpanii, we Włoszech, wszędzie. Mega sprawa." },
             ].map((r, i) => (
               <ReviewCard key={i} {...r} />
             ))}
