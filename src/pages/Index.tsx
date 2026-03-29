@@ -717,8 +717,8 @@ export default function Index() {
               <Heart size={14} className="text-[#3B82F6]" fill="#3B82F6" /> 2 800+ zadowolonych klientów
             </span>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
+          {(() => {
+            const allReviews = [
               { name: "Anna Kowalska", text: "Byłam na wakacjach w Japonii i HexaBuds Pro uratowały mi życie! Zamawianie jedzenia, pytanie o drogę — wszystko w czasie rzeczywistym. Jakość dźwięku super, translacja praktycznie bez opóźnień." },
               { name: "Marcin Wiśniewski", text: "Używam na spotkaniach biznesowych z klientami z Niemiec i Francji. Oszczędzam na tłumaczu, rozmowy idą płynnie. Polecam każdemu przedsiębiorcy!" },
               { name: "Kasia Lewandowska", text: "Uczę się koreańskiego i te słuchawki to game changer. Aplikacja podpowiada wymowę, tryb konwersacji pozwala ćwiczyć z ludźmi bez stresu. Bateria trzyma cały dzień." },
@@ -741,10 +741,37 @@ export default function Index() {
               { name: "Łukasz Michalski", text: "Polecił mi kolega z pracy. Na początku sceptyczny, ale po pierwszym spotkaniu z klientem z Korei wiedziałem że to must-have. Apka jest intuicyjna, parowanie trwa sekundy." },
               { name: "Karolina Wróbel", text: "Super obsługa klienta! Miałam problem z parowaniem i odpisali mi w 20 minut z rozwiązaniem. Słuchawki same w sobie są świetne — lekkie, ładne i funkcjonalne." },
               { name: "Paweł Borkowski", text: "Jestem kierowcą TIR-a i jeżdżę po całej Europie. HexaBuds to mój najlepszy towarzysz podróży — dogadam się na stacji w Hiszpanii, we Włoszech, wszędzie. Mega sprawa." },
-            ].map((r, i) => (
-              <ReviewCard key={i} {...r} />
-            ))}
-          </div>
+            ];
+            const [showAll, setShowAll] = useState(false);
+            const visible = showAll ? allReviews : allReviews.slice(0, 3);
+            return (
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <AnimatePresence>
+                    {visible.map((r, i) => (
+                      <motion.div
+                        key={r.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: i > 2 ? (i - 3) * 0.05 : 0 }}
+                      >
+                        <ReviewCard {...r} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={() => setShowAll(!showAll)}
+                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-[13px] font-semibold text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                  >
+                    {showAll ? "Zwiń opinie" : `Pokaż wszystkie opinie (${allReviews.length})`}
+                    <ChevronDown size={16} className={`transition-transform ${showAll ? "rotate-180" : ""}`} />
+                  </button>
+                </div>
+              </>
+            );
+          })()}
         </div>
       </Section>
 
