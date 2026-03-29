@@ -140,7 +140,7 @@ function ReviewCard({ name, text }: { name: string; text: string }) {
           <p className="text-[14px] font-semibold text-white">{name}</p>
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} size={12} fill="#F5A623" stroke="#F5A623" />
+              <Star key={i} size={12} fill="#3B82F6" stroke="#3B82F6" />
             ))}
           </div>
         </div>
@@ -310,11 +310,11 @@ export default function Index() {
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between">
                         <p className="truncate text-[14px] font-bold text-white pr-2">{item.product.title}</p>
-                        <button onClick={() => cart.removeItem(item.lineId)} className="text-white/30 hover:text-[#C41E1E]">
+                        <button onClick={() => cart.removeItem(item.lineId)} className="text-white/30 hover:text-[#3B82F6]">
                           <X size={16} />
                         </button>
                       </div>
-                      <p className="text-[13px] font-semibold text-[#C41E1E]">{fmt(item.price)}</p>
+                      <p className="text-[13px] font-semibold text-[#3B82F6]">{fmt(item.price)}</p>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => cart.updateQuantity(item.lineId, item.quantity - 1)}
@@ -421,7 +421,7 @@ export default function Index() {
               <div className="flex items-center gap-2">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={16} fill="#F5A623" stroke="#F5A623" />
+                    <Star key={i} size={16} fill="#3B82F6" stroke="#3B82F6" />
                   ))}
                 </div>
                 <span className="text-[14px] font-semibold text-white">4.9</span>
@@ -434,9 +434,9 @@ export default function Index() {
 
               {/* Price */}
               <div className="flex items-center gap-3">
-                <span className="text-[24px] font-extrabold text-[#C41E1E] sm:text-[26px]">{fmt(PRODUCT.price)}</span>
+                <span className="text-[24px] font-extrabold text-[#3B82F6] sm:text-[26px]">{fmt(PRODUCT.price)}</span>
                 <span className="text-[16px] text-white/30 line-through">{fmt(PRODUCT.compareAtPrice)}</span>
-                <span className="rounded-full bg-[#C41E1E] px-2.5 py-0.5 text-[12px] font-bold text-white">
+                <span className="rounded-full bg-[#3B82F6] px-2.5 py-0.5 text-[12px] font-bold text-white">
                   -{discount}%
                 </span>
               </div>
@@ -512,7 +512,7 @@ export default function Index() {
       <Section className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-center gap-5">
-            <span className="inline-block w-fit rounded-full bg-[#FF6B00]/15 px-3 py-1 text-[12px] font-semibold text-[#FF9F43]">
+            <span className="inline-block w-fit rounded-full bg-[#0946F6]/15 px-3 py-1 text-[12px] font-semibold text-[#4B8BF5]">
               Problem
             </span>
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">
@@ -521,8 +521,8 @@ export default function Index() {
             <div className="flex flex-col gap-3">
               {PRODUCT.problems.map((p, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#FF6B00]/15 text-[14px]">
-                    🔸
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#0946F6]/15 text-[14px]">
+                    🔹
                   </span>
                   <span className="text-[14px] text-white/75">{p}</span>
                 </div>
@@ -714,7 +714,7 @@ export default function Index() {
           <div className="mb-8 flex flex-col items-center gap-3 text-center">
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">Co mówią klienci</h2>
             <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-[12px] font-medium text-white/65 border border-white/10">
-              <Heart size={14} className="text-[#C41E1E]" fill="#C41E1E" /> 2 800+ zadowolonych klientów
+              <Heart size={14} className="text-[#3B82F6]" fill="#3B82F6" /> 2 800+ zadowolonych klientów
             </span>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -803,7 +803,7 @@ export default function Index() {
           >
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
               <div className="hidden items-center gap-2 sm:flex">
-                <span className="text-[18px] font-extrabold text-[#C41E1E]">{fmt(PRODUCT.price)}</span>
+                <span className="text-[18px] font-extrabold text-[#3B82F6]">{fmt(PRODUCT.price)}</span>
                 <span className="text-[14px] text-white/30 line-through">{fmt(PRODUCT.compareAtPrice)}</span>
               </div>
               <motion.button
