@@ -311,28 +311,32 @@ export default function Index() {
             ) : (
               <div className="flex flex-col gap-3">
                 {cart.items.map((item) => (
-                  <div key={item.lineId} className="flex gap-3 rounded-2xl border border-white/10 bg-[#0A1628] p-3">
+                  <div key={item.variantId} className="flex gap-3 rounded-2xl border border-white/10 bg-[#0A1628] p-3">
                     <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#0F1E36] to-[#162D50]">
-                      <ImageIcon size={24} className="text-white/20" />
+                      {item.product.node.images?.edges?.[0]?.node ? (
+                        <img src={item.product.node.images.edges[0].node.url} alt={item.product.node.title} className="h-full w-full object-cover rounded-xl" />
+                      ) : (
+                        <ImageIcon size={24} className="text-white/20" />
+                      )}
                     </div>
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between">
-                        <p className="truncate text-[14px] font-bold text-white pr-2">{item.product.title}</p>
-                        <button onClick={() => cart.removeItem(item.lineId)} className="text-white/30 hover:text-[#3B82F6]">
+                        <p className="truncate text-[14px] font-bold text-white pr-2">{item.product.node.title}</p>
+                        <button onClick={() => cart.removeItem(item.variantId)} className="text-white/30 hover:text-[#3B82F6]">
                           <X size={16} />
                         </button>
                       </div>
-                      <p className="text-[13px] font-semibold text-[#3B82F6]">{fmt(item.price)}</p>
+                      <p className="text-[13px] font-semibold text-[#3B82F6]">{fmt(parseFloat(item.price.amount))}</p>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => cart.updateQuantity(item.lineId, item.quantity - 1)}
+                          onClick={() => cart.updateQuantity(item.variantId, item.quantity - 1)}
                           className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/75"
                         >
                           <Minus size={14} />
                         </button>
                         <span className="w-6 text-center text-[13px] font-semibold text-white">{item.quantity}</span>
                         <button
-                          onClick={() => cart.updateQuantity(item.lineId, item.quantity + 1)}
+                          onClick={() => cart.updateQuantity(item.variantId, item.quantity + 1)}
                           className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/75"
                         >
                           <Plus size={14} />
