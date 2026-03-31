@@ -49,21 +49,28 @@ const PRODUCT = {
 const discount = Math.round(((PRODUCT.compareAtPrice - PRODUCT.price) / PRODUCT.compareAtPrice) * 100);
 const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " zł";
 
-const toShopifyProduct = (): ShopifyProduct => ({
-  id: `gid://shopify/Product/PLACEHOLDER`,
-  title: PRODUCT.name,
-  handle: PRODUCT.handle,
-  images: { edges: PRODUCT.images.map((url) => ({ node: { url: url || "", altText: PRODUCT.name } })) },
-  variants: {
-    edges: [
-      {
-        node: {
-          id: PRODUCT.variantId,
-          title: "Default",
-          price: { amount: String(PRODUCT.price), currencyCode: "PLN" },
+const toShopifyProduct = () => ({
+  node: {
+    id: `gid://shopify/Product/PLACEHOLDER`,
+    title: PRODUCT.name,
+    description: "",
+    handle: PRODUCT.handle,
+    priceRange: { minVariantPrice: { amount: String(PRODUCT.price), currencyCode: "PLN" } },
+    images: { edges: PRODUCT.images.map((url) => ({ node: { url: url || "", altText: PRODUCT.name } })) },
+    variants: {
+      edges: [
+        {
+          node: {
+            id: PRODUCT.variantId,
+            title: "Default",
+            price: { amount: String(PRODUCT.price), currencyCode: "PLN" },
+            availableForSale: true,
+            selectedOptions: [],
+          },
         },
-      },
-    ],
+      ],
+    },
+    options: [],
   },
 });
 
