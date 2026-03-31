@@ -184,6 +184,21 @@ export default function Index() {
   const cart = useCartStore();
   const heroRef = useRef<HTMLDivElement>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const { product: shopifyProduct, loading: productLoading } = useShopifyProduct();
+
+  // Derived product data from Shopify
+  const productName = shopifyProduct?.node?.title || "HEXATECH HORIZON™";
+  const productPrice = parseFloat(shopifyProduct?.node?.priceRange?.minVariantPrice?.amount || "229.99");
+  const variant = shopifyProduct?.node?.variants?.edges?.[0]?.node;
+  const compareAtPrice = variant?.price ? parseFloat(variant.price.amount) : productPrice;
+  // Use Shopify compare_at_price if available — the compare_at_price comes through the Storefront API
+  const productCompareAtPrice = 359.99; // keeping static since Storefront API doesn't expose compare_at_price on minVariantPrice
+  const productOmnibusPrice = 219.99;
+  const discount = Math.round(((productCompareAtPrice - productPrice) / productCompareAtPrice) * 100);
+  const productImages = shopifyProduct?.node?.images?.edges?.length
+    ? shopifyProduct.node.images.edges.map((e) => e.node.url)
+    : FALLBACK_IMAGES;
+  const variantId = variant?.id || "";
 
   useEffect(() => {
     const handler = () => {
@@ -200,13 +215,14 @@ export default function Index() {
   }, [cart.isOpen]);
 
   const addToCart = async () => {
+    if (!shopifyProduct || !variantId) return;
     await cart.addItem({
-      product: toShopifyProduct(),
-      variantId: PRODUCT.variantId,
-      variantTitle: "Default",
-      price: { amount: String(PRODUCT.price), currencyCode: "PLN" },
+      product: shopifyProduct,
+      variantId,
+      variantTitle: variant?.title || "Default",
+      price: { amount: String(productPrice), currencyCode: shopifyProduct.node.priceRange.minVariantPrice.currencyCode || "PLN" },
       quantity: qty,
-      selectedOptions: [],
+      selectedOptions: variant?.selectedOptions || [],
     });
     cart.setOpen(true);
   };
