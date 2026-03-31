@@ -420,10 +420,10 @@ export default function Index() {
             {/* Gallery */}
             <div>
               <div className="aspect-square w-full overflow-hidden rounded-2xl">
-                <img src={PRODUCT.images[activeImg]} alt={PRODUCT.name} width={1024} height={1024} className="h-full w-full object-cover" />
+                <img src={productImages[activeImg]} alt={productName} width={1024} height={1024} className="h-full w-full object-cover" />
               </div>
               <div className="mt-3 grid grid-cols-5 gap-2">
-                {PRODUCT.images.map((img, i) => (
+                {productImages.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
@@ -431,7 +431,7 @@ export default function Index() {
                       activeImg === i ? "border-[#0946F6]" : "border-transparent"
                     }`}
                   >
-                    <img src={img} alt={`${PRODUCT.name} ${i + 1}`} loading="lazy" width={200} height={200} className="h-full w-full object-cover" />
+                    <img src={img} alt={`${productName} ${i + 1}`} loading="lazy" width={200} height={200} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -451,13 +451,13 @@ export default function Index() {
               </div>
 
               <h1 className="text-[26px] font-extrabold leading-tight text-white sm:text-[32px]">
-                {PRODUCT.name} — Słuchawki AI z Translacją na 135 Języków
+                {productName} — Słuchawki AI z Translacją na 135 Języków
               </h1>
 
               {/* Price */}
               <div className="flex items-center gap-3">
-                <span className="text-[24px] font-extrabold text-[#3B82F6] sm:text-[26px]">{fmt(PRODUCT.price)}</span>
-                <span className="text-[16px] text-white/30 line-through">{fmt(PRODUCT.compareAtPrice)}</span>
+                <span className="text-[24px] font-extrabold text-[#3B82F6] sm:text-[26px]">{fmt(productPrice)}</span>
+                <span className="text-[16px] text-white/30 line-through">{fmt(productCompareAtPrice)}</span>
                 <span className="rounded-full bg-[#3B82F6] px-2.5 py-0.5 text-[12px] font-bold text-white">
                   -{discount}%
                 </span>
@@ -465,7 +465,7 @@ export default function Index() {
 
               {/* Benefits */}
               <div className="flex flex-col gap-2">
-                {PRODUCT.benefits.map((b, i) => (
+                {STATIC_INFO.benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#0946F6]/15">
                       <Check size={14} className="text-[#4B8BF5]" />
@@ -498,7 +498,7 @@ export default function Index() {
                 onClick={addToCart}
                 className="w-full rounded-2xl bg-white py-[18px] text-[14px] font-bold uppercase tracking-wider text-[#0A1628]"
               >
-                DODAJ DO KOSZYKA — {fmt(PRODUCT.price * qty)}
+                DODAJ DO KOSZYKA — {fmt(productPrice * qty)}
               </motion.button>
 
               {/* Trust */}
@@ -523,7 +523,7 @@ export default function Index() {
 
               {/* Omnibus */}
               <p className="text-[11px] text-white/30">
-                Najniższa cena z ostatnich 30 dni: {fmt(PRODUCT.omnibusPrice)}
+                Najniższa cena z ostatnich 30 dni: {fmt(productOmnibusPrice)}
               </p>
             </div>
           </div>
@@ -541,7 +541,7 @@ export default function Index() {
               Bariery językowe kosztują Cię czas, pieniądze i okazje
             </h2>
             <div className="flex flex-col gap-3">
-              {PRODUCT.problems.map((p, i) => (
+              {STATIC_INFO.problems.map((p, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#0946F6]/15 text-[14px]">
                     🔹
@@ -567,7 +567,7 @@ export default function Index() {
               HexaBuds Pro — Twój osobisty tłumacz i asystent AI
             </h2>
             <div className="flex flex-col gap-3">
-              {PRODUCT.features.map((f, i) => (
+              {STATIC_INFO.features.map((f, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#0946F6]/15">
                     <Check size={14} className="text-[#4B8BF5]" />
@@ -602,7 +602,7 @@ export default function Index() {
       <Section className="bg-[#0D1B2E] py-12 sm:py-16">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h2 className="mb-8 text-[24px] font-extrabold text-white sm:text-[30px]">
-            Dlaczego {PRODUCT.name}?
+            Dlaczego {productName}?
           </h2>
           <Tabs defaultValue="tab1" className="w-full">
             <TabsList className="mb-6 inline-flex rounded-xl bg-white/10 p-1">
@@ -702,7 +702,7 @@ export default function Index() {
             <thead className="bg-white/5">
               <tr>
                 <th className="px-5 py-3 font-semibold text-white">Cecha</th>
-                <th className="px-5 py-3 text-center font-semibold text-white">{PRODUCT.name}</th>
+                <th className="px-5 py-3 text-center font-semibold text-white">{productName}</th>
                 <th className="px-5 py-3 text-center font-semibold text-white">Konkurencja</th>
               </tr>
             </thead>
@@ -835,7 +835,7 @@ export default function Index() {
       <Section className="py-16 sm:py-20 text-center">
         <div className="mx-auto max-w-xl px-4">
           <h2 className="mb-3 text-[24px] font-extrabold text-white sm:text-[30px]">
-            Zamów {PRODUCT.name} już teraz
+            Zamów {productName} już teraz
           </h2>
           <p className="mb-6 text-[14px] text-white/65">
             Dołącz do ponad 2 800 klientów, którzy przełamali bariery językowe. Darmowa dostawa, 30 dni na zwrot i 24 miesiące gwarancji.
@@ -905,8 +905,8 @@ export default function Index() {
           >
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
               <div className="hidden items-center gap-2 sm:flex">
-                <span className="text-[18px] font-extrabold text-[#3B82F6]">{fmt(PRODUCT.price)}</span>
-                <span className="text-[14px] text-white/30 line-through">{fmt(PRODUCT.compareAtPrice)}</span>
+                <span className="text-[18px] font-extrabold text-[#3B82F6]">{fmt(productPrice)}</span>
+                <span className="text-[14px] text-white/30 line-through">{fmt(productCompareAtPrice)}</span>
               </div>
               <motion.button
                 whileHover={{ scale: 1.02 }}
