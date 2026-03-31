@@ -7,7 +7,7 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useCartStore, type ShopifyProduct } from "@/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import logo from "@/assets/logo.png";
 import productHero from "@/assets/product-hero.jpg";
 import productDetail from "@/assets/product-detail.jpg";
