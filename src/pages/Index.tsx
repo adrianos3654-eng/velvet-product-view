@@ -205,12 +205,12 @@ export default function Index() {
     if (cart.isOpen) cart.syncCart();
   }, [cart.isOpen]);
 
-  const addToCart = () => {
-    cart.addItem({
+  const addToCart = async () => {
+    await cart.addItem({
       product: toShopifyProduct(),
       variantId: PRODUCT.variantId,
       variantTitle: "Default",
-      price: PRODUCT.price,
+      price: { amount: String(PRODUCT.price), currencyCode: "PLN" },
       quantity: qty,
       selectedOptions: [],
     });
@@ -219,7 +219,7 @@ export default function Index() {
 
   const handleCheckout = () => {
     const url = cart.getCheckoutUrl();
-    window.open(url, "_blank");
+    if (url) window.open(url, "_blank");
   };
 
   const totalItems = cart.totalItems();
