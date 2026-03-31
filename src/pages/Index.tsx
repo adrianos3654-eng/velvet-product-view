@@ -44,30 +44,29 @@ const STATIC_INFO = {
 
 const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " zł";
 
-const toShopifyProduct = () => ({
-  node: {
-    id: `gid://shopify/Product/PLACEHOLDER`,
-    title: PRODUCT.name,
-    description: "",
-    handle: PRODUCT.handle,
-    priceRange: { minVariantPrice: { amount: String(PRODUCT.price), currencyCode: "PLN" } },
-    images: { edges: PRODUCT.images.map((url) => ({ node: { url: url || "", altText: PRODUCT.name } })) },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: PRODUCT.variantId,
-            title: "Default",
-            price: { amount: String(PRODUCT.price), currencyCode: "PLN" },
-            availableForSale: true,
-            selectedOptions: [],
-          },
-        },
-      ],
-    },
-    options: [],
-  },
-});
+/* ─── Hook: fetch product from Shopify ─── */
+function useShopifyProduct() {
+  const [product, setProduct] = useState<ShopifyProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 50, query: "title:HEXATECH HORIZON" });
+        const edges = data?.data?.products?.edges || [];
+        if (edges.length > 0) {
+          setProduct(edges[0]);
+        }
+      } catch (e) {
+        console.error("Failed to fetch product:", e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  return { product, loading };
+}
 
 /* ─── ANIMATION HELPERS ─── */
 const fadeUp = {
