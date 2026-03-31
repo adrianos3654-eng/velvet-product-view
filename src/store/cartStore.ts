@@ -1,35 +1,31 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import {
+  type CartItem,
+  type ShopifyProduct,
+  createShopifyCart,
+  addLineToShopifyCart,
+  updateShopifyCartLine,
+  removeLineFromShopifyCart,
+  fetchShopifyCart,
+} from "@/lib/shopify";
 
-export interface ShopifyProduct {
-  id: string;
-  title: string;
-  handle: string;
-  images: { edges: { node: { url: string; altText: string | null } }[] };
-  variants: { edges: { node: { id: string; title: string; price: { amount: string; currencyCode: string } } }[] };
-}
-
-export interface CartItem {
-  lineId: string;
-  product: ShopifyProduct;
-  variantId: string;
-  variantTitle: string;
-  price: number;
-  quantity: number;
-  selectedOptions: { name: string; value: string }[];
-}
+export type { CartItem, ShopifyProduct };
 
 interface CartStore {
   items: CartItem[];
+  cartId: string | null;
+  checkoutUrl: string | null;
   isLoading: boolean;
+  isSyncing: boolean;
   isOpen: boolean;
   setOpen: (open: boolean) => void;
-  addItem: (item: Omit<CartItem, "lineId">) => void;
-  updateQuantity: (lineId: string, quantity: number) => void;
-  removeItem: (lineId: string) => void;
+  addItem: (item: Omit<CartItem, "lineId">) => Promise<void>;
+  updateQuantity: (variantId: string, quantity: number) => Promise<void>;
+  removeItem: (variantId: string) => Promise<void>;
   clearCart: () => void;
-  getCheckoutUrl: () => string;
-  syncCart: () => void;
+  syncCart: () => Promise<void>;
+  getCheckoutUrl: () => string | null;
   totalItems: () => number;
   totalPrice: () => number;
 }
@@ -38,56 +34,130 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      cartId: null,
+      checkoutUrl: null,
       isLoading: false,
+      isSyncing: false,
       isOpen: false,
       setOpen: (open) => set({ isOpen: open }),
-      addItem: (item) => {
-        const items = get().items;
+
+      addItem: async (item) => {
+        const { items, cartId, clearCart } = get();
         const existing = items.find((i) => i.variantId === item.variantId);
-        if (existing) {
-          set({
-            items: items.map((i) =>
-              i.variantId === item.variantId
-                ? { ...i, quantity: i.quantity + item.quantity }
-                : i
-            ),
-          });
-        } else {
-          set({
-            items: [...items, { ...item, lineId: `line_${Date.now()}_${Math.random().toString(36).slice(2)}` }],
-          });
+
+        set({ isLoading: true });
+        try {
+          if (!cartId) {
+            const result = await createShopifyCart({ ...item, lineId: null });
+            if (result) {
+              set({
+                cartId: result.cartId,
+                checkoutUrl: result.checkoutUrl,
+                items: [{ ...item, lineId: result.lineId }],
+              });
+            }
+          } else if (existing) {
+            const newQty = existing.quantity + item.quantity;
+            if (!existing.lineId) return;
+            const result = await updateShopifyCartLine(cartId, existing.lineId, newQty);
+            if (result.success) {
+              set({ items: get().items.map((i) => (i.variantId === item.variantId ? { ...i, quantity: newQty } : i)) });
+            } else if (result.cartNotFound) {
+              clearCart();
+            }
+          } else {
+            const result = await addLineToShopifyCart(cartId, { ...item, lineId: null });
+            if (result.success) {
+              set({ items: [...get().items, { ...item, lineId: result.lineId ?? null }] });
+            } else if (result.cartNotFound) {
+              clearCart();
+            }
+          }
+        } catch (error) {
+          console.error("Failed to add item:", error);
+        } finally {
+          set({ isLoading: false });
         }
       },
-      updateQuantity: (lineId, quantity) => {
+
+      updateQuantity: async (variantId, quantity) => {
         if (quantity <= 0) {
-          get().removeItem(lineId);
+          await get().removeItem(variantId);
           return;
         }
-        set({
-          items: get().items.map((i) =>
-            i.lineId === lineId ? { ...i, quantity } : i
-          ),
-        });
+        const { items, cartId, clearCart } = get();
+        const item = items.find((i) => i.variantId === variantId);
+        if (!item?.lineId || !cartId) return;
+
+        set({ isLoading: true });
+        try {
+          const result = await updateShopifyCartLine(cartId, item.lineId, quantity);
+          if (result.success) {
+            set({ items: get().items.map((i) => (i.variantId === variantId ? { ...i, quantity } : i)) });
+          } else if (result.cartNotFound) {
+            clearCart();
+          }
+        } catch (error) {
+          console.error("Failed to update quantity:", error);
+        } finally {
+          set({ isLoading: false });
+        }
       },
-      removeItem: (lineId) => {
-        set({ items: get().items.filter((i) => i.lineId !== lineId) });
+
+      removeItem: async (variantId) => {
+        const { items, cartId, clearCart } = get();
+        const item = items.find((i) => i.variantId === variantId);
+        if (!item?.lineId || !cartId) return;
+
+        set({ isLoading: true });
+        try {
+          const result = await removeLineFromShopifyCart(cartId, item.lineId);
+          if (result.success) {
+            const newItems = get().items.filter((i) => i.variantId !== variantId);
+            newItems.length === 0 ? clearCart() : set({ items: newItems });
+          } else if (result.cartNotFound) {
+            clearCart();
+          }
+        } catch (error) {
+          console.error("Failed to remove item:", error);
+        } finally {
+          set({ isLoading: false });
+        }
       },
-      clearCart: () => set({ items: [] }),
-      getCheckoutUrl: () => {
-        // Placeholder — will be replaced with Shopify Storefront API cart creation
-        const items = get().items;
-        const lineItems = items.map((i) => `${i.variantId.split("/").pop()}:${i.quantity}`).join(",");
-        return `https://your-store.myshopify.com/cart/${lineItems}`;
+
+      clearCart: () => set({ items: [], cartId: null, checkoutUrl: null }),
+
+      getCheckoutUrl: () => get().checkoutUrl,
+
+      syncCart: async () => {
+        const { cartId, isSyncing, clearCart } = get();
+        if (!cartId || isSyncing) return;
+
+        set({ isSyncing: true });
+        try {
+          const data = await fetchShopifyCart(cartId);
+          if (!data) return;
+          const cart = data?.data?.cart;
+          if (!cart || cart.totalQuantity === 0) clearCart();
+        } catch (error) {
+          console.error("Failed to sync cart:", error);
+        } finally {
+          set({ isSyncing: false });
+        }
       },
-      syncCart: () => {
-        // Placeholder for syncing with Shopify cart API
-      },
+
       totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
-      totalPrice: () => get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      totalPrice: () =>
+        get().items.reduce((sum, i) => sum + parseFloat(i.price.amount) * i.quantity, 0),
     }),
     {
-      name: "cart-storage",
-      partialize: (state) => ({ items: state.items }),
+      name: "shopify-cart",
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        items: state.items,
+        cartId: state.cartId,
+        checkoutUrl: state.checkoutUrl,
+      }),
     }
   )
 );
