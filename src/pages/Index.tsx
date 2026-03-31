@@ -8,6 +8,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore } from "@/store/cartStore";
+import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import logo from "@/assets/logo.png";
 import productHero from "@/assets/product-hero.jpg";
 import productDetail from "@/assets/product-detail.jpg";
@@ -18,15 +19,10 @@ import sectionProblem from "@/assets/section-problem.jpg";
 import sectionSolution from "@/assets/section-solution.jpg";
 import sectionHowworks from "@/assets/section-howworks.jpg";
 
-/* ─── PRODUCT DATA ─── */
-const PRODUCT = {
-  name: "HexaBuds Pro",
-  price: 229.99,
-  compareAtPrice: 359.99,
-  omnibusPrice: 219.99,
-  variantId: "gid://shopify/ProductVariant/PLACEHOLDER",
-  handle: "hexabuds-pro",
-  images: [productHero, productDetail, productCase, productLifestyle, productUnboxing],
+/* ─── STATIC FALLBACKS ─── */
+const FALLBACK_IMAGES = [productHero, productDetail, productCase, productLifestyle, productUnboxing];
+
+const STATIC_INFO = {
   benefits: [
     "Translacja w czasie rzeczywistym na 135 języków",
     "Wbudowana aplikacja AI z osobistym asystentem głosowym",
@@ -46,7 +42,6 @@ const PRODUCT = {
   ],
 };
 
-const discount = Math.round(((PRODUCT.compareAtPrice - PRODUCT.price) / PRODUCT.compareAtPrice) * 100);
 const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " zł";
 
 const toShopifyProduct = () => ({
