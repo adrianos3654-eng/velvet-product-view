@@ -18,6 +18,9 @@ function AppInner() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
+        <Route path="/regulamin" element={<Terms />} />
+        <Route path="/zwroty" element={<Returns />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -881,11 +881,11 @@ export default function Index() {
       <footer className="border-t border-white/10 bg-[#070F1D] py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 sm:flex-row">
           <div className="flex gap-3 text-[11px] text-white/55 sm:text-[12px]">
-            <a href="#" className="hover:underline hover:text-white/75">Regulamin</a>
+            <a href="/regulamin" className="hover:underline hover:text-white/75">Regulamin</a>
             <span>|</span>
-            <a href="#" className="hover:underline hover:text-white/75">Polityka prywatności</a>
+            <a href="/polityka-prywatnosci" className="hover:underline hover:text-white/75">Polityka prywatności</a>
             <span>|</span>
-            <a href="#" className="hover:underline hover:text-white/75">Zwroty</a>
+            <a href="/zwroty" className="hover:underline hover:text-white/75">Zwroty</a>
           </div>
           <p className="text-[11px] text-white/25 sm:text-[12px]">
             © 2026 HEXATECH. Wszelkie prawa zastrzeżone.
