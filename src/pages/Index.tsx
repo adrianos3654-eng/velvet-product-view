@@ -18,6 +18,7 @@ import productUnboxing from "@/assets/product-unboxing.jpg";
 import sectionProblem from "@/assets/section-problem.jpg";
 import sectionSolution from "@/assets/section-solution.jpg";
 import sectionHowworks from "@/assets/section-howworks.jpg";
+import CookieBanner from "@/components/CookieBanner";
 
 /* ─── STATIC FALLBACKS ─── */
 const FALLBACK_IMAGES = [productHero, productDetail, productCase, productLifestyle, productUnboxing];
