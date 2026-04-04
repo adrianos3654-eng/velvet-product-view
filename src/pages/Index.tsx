@@ -506,6 +506,55 @@ export default function Index() {
                 DODAJ DO KOSZYKA — {fmt(productPrice * qty)}
               </motion.button>
 
+              {/* ─── ALTERNATYWNY PRODUKT ─── */}
+              {shopifyAltProduct && (() => {
+                const altName = shopifyAltProduct.node.title;
+                const altPrice = parseFloat(shopifyAltProduct.node.priceRange.minVariantPrice.amount);
+                const altImage = shopifyAltProduct.node.images?.edges?.[0]?.node?.url;
+                const altVariant = shopifyAltProduct.node.variants?.edges?.[0]?.node;
+                const addAltToCart = async () => {
+                  if (!altVariant) return;
+                  await cart.addItem({
+                    product: shopifyAltProduct,
+                    variantId: altVariant.id,
+                    variantTitle: altVariant.title || "Default",
+                    price: { amount: String(altPrice), currencyCode: shopifyAltProduct.node.priceRange.minVariantPrice.currencyCode || "PLN" },
+                    quantity: 1,
+                    selectedOptions: altVariant.selectedOptions || [],
+                  });
+                  cart.setOpen(true);
+                };
+                return (
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-[#0F1E36] p-4">
+                    <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[#4B8BF5]">💡 Alternatywa — tańsza opcja</p>
+                    <div className="flex gap-4">
+                      {altImage && (
+                        <img src={altImage} alt={altName} className="h-20 w-20 flex-shrink-0 rounded-xl object-cover" />
+                      )}
+                      <div className="flex flex-1 flex-col justify-between">
+                        <div>
+                          <h4 className="text-[13px] font-bold text-white leading-tight">{altName}</h4>
+                          <div className="mt-1 flex items-center gap-2">
+                            <span className="text-[16px] font-extrabold text-[#3B82F6]">{fmt(altPrice)}</span>
+                            <span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-bold text-green-400">
+                              Oszczędzasz {fmt(productPrice - altPrice)}
+                            </span>
+                          </div>
+                        </div>
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={addAltToCart}
+                          className="mt-2 w-full rounded-xl border border-[#0946F6] py-2 text-[11px] font-bold uppercase tracking-wider text-[#4B8BF5] transition-colors hover:bg-[#0946F6]/10"
+                        >
+                          DODAJ DO KOSZYKA
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
               {/* Trust */}
               <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-white/55">
                 <span className="flex items-center gap-1"><Lock size={12} /> Bezpieczna płatność</span>
