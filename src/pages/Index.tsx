@@ -977,6 +977,9 @@ export default function Index() {
 
       {/* ─── 16. SPACER ─── */}
       <div className="h-16" />
+
+      {/* ─── COOKIE BANNER ─── */}
+      <CookieBanner />
     </div>
   );
 }
