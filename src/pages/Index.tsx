@@ -18,6 +18,7 @@ import productUnboxing from "@/assets/product-unboxing.jpg";
 import sectionProblem from "@/assets/section-problem.jpg";
 import sectionSolution from "@/assets/section-solution.jpg";
 import sectionHowworks from "@/assets/section-howworks.jpg";
+import CookieBanner from "@/components/CookieBanner";
 
 /* ─── STATIC FALLBACKS ─── */
 const FALLBACK_IMAGES = [productHero, productDetail, productCase, productLifestyle, productUnboxing];
@@ -44,28 +45,32 @@ const STATIC_INFO = {
 
 const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " zł";
 
-/* ─── Hook: fetch product from Shopify ─── */
-function useShopifyProduct() {
+/* ─── Hook: fetch products from Shopify ─── */
+function useShopifyProducts() {
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
+  const [altProduct, setAltProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 50, query: "title:HEXATECH HORIZON" });
-        const edges = data?.data?.products?.edges || [];
-        if (edges.length > 0) {
-          setProduct(edges[0]);
-        }
+        const [mainData, altData] = await Promise.all([
+          storefrontApiRequest(PRODUCTS_QUERY, { first: 1, query: "title:HEXATECH HORIZON" }),
+          storefrontApiRequest(PRODUCTS_QUERY, { first: 1, query: "title:erazer" }),
+        ]);
+        const mainEdges = mainData?.data?.products?.edges || [];
+        if (mainEdges.length > 0) setProduct(mainEdges[0]);
+        const altEdges = altData?.data?.products?.edges || [];
+        if (altEdges.length > 0) setAltProduct(altEdges[0]);
       } catch (e) {
-        console.error("Failed to fetch product:", e);
+        console.error("Failed to fetch products:", e);
       } finally {
         setLoading(false);
       }
     })();
   }, []);
 
-  return { product, loading };
+  return { product, altProduct, loading };
 }
 
 /* ─── ANIMATION HELPERS ─── */
@@ -184,7 +189,7 @@ export default function Index() {
   const cart = useCartStore();
   const heroRef = useRef<HTMLDivElement>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
-  const { product: shopifyProduct, loading: productLoading } = useShopifyProduct();
+  const { product: shopifyProduct, altProduct: shopifyAltProduct, loading: productLoading } = useShopifyProducts();
 
   // Derived product data from Shopify
   const productName = shopifyProduct?.node?.title || "HEXATECH HORIZON™";
@@ -500,6 +505,55 @@ export default function Index() {
               >
                 DODAJ DO KOSZYKA — {fmt(productPrice * qty)}
               </motion.button>
+
+              {/* ─── ALTERNATYWNY PRODUKT ─── */}
+              {shopifyAltProduct && (() => {
+                const altName = shopifyAltProduct.node.title;
+                const altPrice = parseFloat(shopifyAltProduct.node.priceRange.minVariantPrice.amount);
+                const altImage = shopifyAltProduct.node.images?.edges?.[0]?.node?.url;
+                const altVariant = shopifyAltProduct.node.variants?.edges?.[0]?.node;
+                const addAltToCart = async () => {
+                  if (!altVariant) return;
+                  await cart.addItem({
+                    product: shopifyAltProduct,
+                    variantId: altVariant.id,
+                    variantTitle: altVariant.title || "Default",
+                    price: { amount: String(altPrice), currencyCode: shopifyAltProduct.node.priceRange.minVariantPrice.currencyCode || "PLN" },
+                    quantity: 1,
+                    selectedOptions: altVariant.selectedOptions || [],
+                  });
+                  cart.setOpen(true);
+                };
+                return (
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-[#0F1E36] p-4">
+                    <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[#4B8BF5]">💡 Alternatywa — tańsza opcja</p>
+                    <div className="flex gap-4">
+                      {altImage && (
+                        <img src={altImage} alt={altName} className="h-20 w-20 flex-shrink-0 rounded-xl object-cover" />
+                      )}
+                      <div className="flex flex-1 flex-col justify-between">
+                        <div>
+                          <h4 className="text-[13px] font-bold text-white leading-tight">{altName}</h4>
+                          <div className="mt-1 flex items-center gap-2">
+                            <span className="text-[16px] font-extrabold text-[#3B82F6]">{fmt(altPrice)}</span>
+                            <span className="rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-bold text-green-400">
+                              Oszczędzasz {fmt(productPrice - altPrice)}
+                            </span>
+                          </div>
+                        </div>
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={addAltToCart}
+                          className="mt-2 w-full rounded-xl border border-[#0946F6] py-2 text-[11px] font-bold uppercase tracking-wider text-[#4B8BF5] transition-colors hover:bg-[#0946F6]/10"
+                        >
+                          DODAJ DO KOSZYKA
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Trust */}
               <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-white/55">
@@ -923,6 +977,9 @@ export default function Index() {
 
       {/* ─── 16. SPACER ─── */}
       <div className="h-16" />
+
+      {/* ─── COOKIE BANNER ─── */}
+      <CookieBanner />
     </div>
   );
 }
