@@ -188,7 +188,7 @@ export default function Index() {
   const cart = useCartStore();
   const heroRef = useRef<HTMLDivElement>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
-  const { product: shopifyProduct, loading: productLoading } = useShopifyProduct();
+  const { product: shopifyProduct, altProduct: shopifyAltProduct, loading: productLoading } = useShopifyProducts();
 
   // Derived product data from Shopify
   const productName = shopifyProduct?.node?.title || "HEXATECH HORIZON™";
