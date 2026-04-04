@@ -44,28 +44,32 @@ const STATIC_INFO = {
 
 const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " zł";
 
-/* ─── Hook: fetch product from Shopify ─── */
-function useShopifyProduct() {
+/* ─── Hook: fetch products from Shopify ─── */
+function useShopifyProducts() {
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
+  const [altProduct, setAltProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 50, query: "title:HEXATECH HORIZON" });
-        const edges = data?.data?.products?.edges || [];
-        if (edges.length > 0) {
-          setProduct(edges[0]);
-        }
+        const [mainData, altData] = await Promise.all([
+          storefrontApiRequest(PRODUCTS_QUERY, { first: 1, query: "title:HEXATECH HORIZON" }),
+          storefrontApiRequest(PRODUCTS_QUERY, { first: 1, query: "title:erazer" }),
+        ]);
+        const mainEdges = mainData?.data?.products?.edges || [];
+        if (mainEdges.length > 0) setProduct(mainEdges[0]);
+        const altEdges = altData?.data?.products?.edges || [];
+        if (altEdges.length > 0) setAltProduct(altEdges[0]);
       } catch (e) {
-        console.error("Failed to fetch product:", e);
+        console.error("Failed to fetch products:", e);
       } finally {
         setLoading(false);
       }
     })();
   }, []);
 
-  return { product, loading };
+  return { product, altProduct, loading };
 }
 
 /* ─── ANIMATION HELPERS ─── */
