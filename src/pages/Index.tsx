@@ -79,12 +79,13 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
-function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Section({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.section
       ref={ref}
+      id={id}
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
@@ -240,6 +241,19 @@ export default function Index() {
   const totalItems = cart.totalItems();
   const totalPrice = cart.totalPrice();
 
+  const scrollTo = (id: string) => {
+    setMobileMenu(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const NAV_LINKS = [
+    { label: "Produkt", id: "produkt" },
+    { label: "Funkcje", id: "funkcje" },
+    { label: "Opinie", id: "opinie" },
+    { label: "FAQ", id: "faq" },
+  ];
+
   return (
     <div className="min-h-screen bg-[#0A1628] font-sans">
       {/* ─── 1. ANNOUNCEMENT BAR ─── */}
@@ -259,13 +273,16 @@ export default function Index() {
               <Menu size={22} className="text-white" />
             </button>
             <div className="hidden items-center gap-4 lg:flex">
-              <span className="rounded-md border border-white/30 px-3 py-1 text-[13px] font-medium text-white">
-                Produkt
-              </span>
-              {["Funkcje", "Opinie", "FAQ"].map((l, i) => (
-                <span key={i} className="cursor-pointer text-[13px] text-white/65 hover:text-white">
-                  {l}
-                </span>
+              {NAV_LINKS.map((l, i) => (
+                <button
+                  key={l.id}
+                  onClick={() => scrollTo(l.id)}
+                  className={`text-[13px] font-medium cursor-pointer ${
+                    i === 0 ? "rounded-md border border-white/30 px-3 py-1 text-white" : "text-white/65 hover:text-white"
+                  }`}
+                >
+                  {l.label}
+                </button>
               ))}
             </div>
           </div>
@@ -290,15 +307,15 @@ export default function Index() {
             <img src={logo} alt="HEXATECH" className="h-7" />
           </div>
           <div className="flex flex-col gap-1 p-4">
-            {["Produkt", "Funkcje", "Opinie", "FAQ"].map((l, i) => (
+            {NAV_LINKS.map((l, i) => (
               <button
-                key={i}
-                onClick={() => setMobileMenu(false)}
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
                 className={`rounded-lg px-3 py-2 text-left text-[14px] font-medium ${
                   i === 0 ? "border border-white/30 text-white" : "text-white/65 hover:bg-white/5"
                 }`}
               >
-                {l}
+                {l.label}
               </button>
             ))}
           </div>
@@ -384,11 +401,11 @@ export default function Index() {
                 </button>
                 <span>
                   Akceptuję{" "}
-                  <a href="#" target="_blank" rel="noopener" className="underline text-white/70">
+                  <a href="/regulamin" target="_blank" rel="noopener" className="underline text-white/70">
                     Warunki świadczenia usług
                   </a>{" "}
                   i{" "}
-                  <a href="#" target="_blank" rel="noopener" className="underline text-white/70">
+                  <a href="/polityka-prywatnosci" target="_blank" rel="noopener" className="underline text-white/70">
                     Politykę prywatności
                   </a>
                 </span>
@@ -419,7 +436,7 @@ export default function Index() {
       </Sheet>
 
       {/* ─── 5. HERO / PRODUCT ─── */}
-      <div ref={heroRef}>
+      <div ref={heroRef} id="produkt">
         <Section className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Gallery */}
@@ -610,7 +627,7 @@ export default function Index() {
       </Section>
 
       {/* ─── 7. FEATURE HIGHLIGHT ─── */}
-      <Section className="bg-[#0D1B2E] py-12 sm:py-16">
+      <Section className="bg-[#0D1B2E] py-12 sm:py-16" id="funkcje">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 lg:grid-cols-2 lg:gap-12">
           <img src={sectionSolution} alt="HexaBuds Pro w użyciu" loading="lazy" width={1024} height={1024} className="aspect-square w-full rounded-2xl object-cover order-1 lg:order-2" />
           <div className="flex flex-col justify-center gap-5 order-2 lg:order-1">
@@ -785,7 +802,7 @@ export default function Index() {
       </Section>
 
       {/* ─── 11. REVIEWS ─── */}
-      <Section className="bg-[#0D1B2E] py-12 sm:py-16">
+      <Section className="bg-[#0D1B2E] py-12 sm:py-16" id="opinie">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-8 flex flex-col items-center gap-3 text-center">
             <h2 className="text-[24px] font-extrabold text-white sm:text-[30px]">Co mówią klienci</h2>
@@ -906,7 +923,7 @@ export default function Index() {
       </Section>
 
       {/* ─── 13. FAQ ─── */}
-      <Section className="bg-[#0D1B2E] py-12 sm:py-16">
+      <Section className="bg-[#0D1B2E] py-12 sm:py-16" id="faq">
         <div className="mx-auto max-w-3xl px-4">
           <h2 className="mb-8 text-center text-[24px] font-extrabold text-white sm:text-[30px]">
             Najczęstsze pytania
