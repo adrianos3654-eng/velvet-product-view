@@ -9,7 +9,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useCartStore } from "@/store/cartStore";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import logo from "@/assets/logo.png";
+// Logo rendered as text component for precise color control
 import productHero from "@/assets/product-hero.jpg";
 import productDetail from "@/assets/product-detail.jpg";
 import productCase from "@/assets/product-case.jpg";
@@ -287,7 +287,9 @@ export default function Index() {
             </div>
           </div>
           {/* Center */}
-          <img src={logo} alt="HEXATECH" className="absolute left-1/2 -translate-x-1/2 h-7 sm:h-8" />
+          <span className="absolute left-1/2 -translate-x-1/2 text-[20px] sm:text-[22px] font-extrabold tracking-tight select-none">
+            <span className="text-white">HEXA</span><span className="text-[#0946F6]">TECH</span>
+          </span>
           {/* Right */}
           <button onClick={() => cart.setOpen(true)} className="relative">
             <ShoppingCart size={22} className="text-white" />
@@ -304,7 +306,9 @@ export default function Index() {
       <Sheet open={mobileMenu} onOpenChange={setMobileMenu}>
         <SheetContent side="left" className="w-[280px] bg-[#0D1B2E] p-0 border-r border-white/10">
           <div className="border-b border-white/10 p-5">
-            <img src={logo} alt="HEXATECH" className="h-7" />
+            <span className="text-[18px] font-extrabold tracking-tight">
+              <span className="text-white">HEXA</span><span className="text-[#0946F6]">TECH</span>
+            </span>
           </div>
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map((l, i) => (
