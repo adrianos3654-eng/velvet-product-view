@@ -79,12 +79,13 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
-function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Section({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.section
       ref={ref}
+      id={id}
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
