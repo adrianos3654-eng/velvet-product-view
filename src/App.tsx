@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import Terms from "./pages/Terms.tsx";
 import Returns from "./pages/Returns.tsx";
+import FestiveStore from "./pages/FestiveStore.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ function AppInner() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/sklep" element={<FestiveStore />} />
         <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
         <Route path="/regulamin" element={<Terms />} />
         <Route path="/zwroty" element={<Returns />} />
