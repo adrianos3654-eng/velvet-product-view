@@ -46,7 +46,34 @@
     --sidebar-border: 220 30% 18%;
     --sidebar-ring: 221 95% 50%;
   }
+
+  /* Festive cream / forest green / gold theme for /sklep */
+  .theme-festive {
+    --background: 40 45% 96%;
+    --foreground: 155 35% 12%;
+    --card: 40 50% 98%;
+    --card-foreground: 155 35% 12%;
+    --primary: 152 45% 18%;
+    --primary-foreground: 40 50% 97%;
+    --secondary: 40 35% 91%;
+    --secondary-foreground: 155 35% 14%;
+    --muted: 40 30% 90%;
+    --muted-foreground: 155 10% 38%;
+    --accent: 40 65% 52%;
+    --accent-foreground: 155 35% 12%;
+    --festive-red: 356 70% 45%;
+    --border: 40 30% 84%;
+    --input: 40 30% 84%;
+    --ring: 152 45% 18%;
+    --shadow-soft: 0 12px 30px -16px hsl(152 45% 18% / 0.35);
+    font-family: 'Manrope', sans-serif;
+  }
+  .theme-festive .font-display { font-family: 'Fraunces', serif; }
 }
+
+@keyframes festive-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-festive-marquee { animation: festive-marquee 30s linear infinite; }
+
 
 @layer base {
   * {
